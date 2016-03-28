@@ -2,4 +2,8 @@
 /node_modules
 Homestead.yaml
 Homestead.json
+/.idea
+/tests
+/public/%SystemDrive%
+.gitignore
 .env
