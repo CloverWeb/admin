@@ -19,10 +19,10 @@ abstract class ServiceSupport
     protected $providers = [];
 
     //方法调用前置，在方法执行之前调用
-    protected $executePrefix = '__before';
+    protected $executePrefix = 'Before';
 
     //方法调用后置，在方法执行之后调用
-    protected $executeSuffix = '__after';
+    protected $executeSuffix = 'After';
 
     /**
      * @var \Illuminate\Contracts\Support\MessageBag $error
@@ -43,7 +43,7 @@ abstract class ServiceSupport
             $method = 'get' . ucfirst($name);
 
             if (method_exists($this, $method)) {
-                $this->attributes[$name] = call_user_func_array([$this, $method], []);
+                $this->attributes[$name] = app()->call([$this, $method]);
             }
 
             return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
@@ -55,8 +55,17 @@ abstract class ServiceSupport
         $this->attributes[$name] = $value;
     }
 
+    /**
+     * 方法前后置调用
+     * @param $method
+     * @param $arguments
+     * @return mixed
+     * @throws \Exception
+     */
     public function __call($method, $arguments)
     {
+        $method = '_' . $method;
+
         if (method_exists($this, $method)) {
 
             $beforeMethod = $method . $this->executePrefix;
@@ -70,7 +79,7 @@ abstract class ServiceSupport
 
             $result = call_user_func_array([$this, $method], $arguments);
 
-            return method_exists($this, $afterMethod) ? app()->call([$this , $afterMethod] , [$result]) : $result;
+            return method_exists($this, $afterMethod) ? $this->$afterMethod($result) : $result;
         }
 
         throw new \Exception('method not found');

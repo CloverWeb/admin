@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (\App\Services\AdminService $service,\App\Models\Admin\AdminGroupAccess $access) {
+
+
+    $service->create([]);
+
     return view('welcome');
 });
+
+Route::match(['GET' , 'POST'] , 'auth/signIn' , 'Auth\AuthController@signIn');
