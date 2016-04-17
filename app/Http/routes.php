@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function (\App\Services\AdminService $service,\App\Models\Admin\AdminGroupAccess $access) {
-
-
-    $service->create([]);
+Route::get('/', function () {
 
     return view('welcome');
 });
