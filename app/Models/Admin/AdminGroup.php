@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Schema;
 
 class AdminGroup extends Model
 {
-
     protected $table = 'admin_group';
+
+    protected $fillable = ['group_name' , 'title' , 'rules'];
 
     public function structure()
     {
@@ -24,7 +25,7 @@ class AdminGroup extends Model
             $table->increments('group_id');
             $table->string('group_name' , 16);          //组名称
             $table->string('title' , 32);              //备注，解释
-            $table->integer('handle');
+            $table->text('rules');
             $table->timestamps();
 
             // Y:正常，N:禁用 ，D:伪删除

@@ -13,8 +13,6 @@ use App\Events\RecordEvent;
 use App\Models\Admin\AdminGroup;
 use App\Models\Admin\AdminGroupAccess;
 use App\Models\Admin\AdminMember;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Session;
 
 /**
