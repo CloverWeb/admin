@@ -27,9 +27,6 @@ class AdminGroup extends Model
             $table->string('title' , 32);              //备注，解释
             $table->text('rules');
             $table->timestamps();
-
-            // Y:正常，N:禁用 ，D:伪删除
-            $table->enum("status" , ['Y' , 'N' , 'D']);
         });
     }
 

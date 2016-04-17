@@ -26,9 +26,6 @@ class AdminMenu extends Model
             $table->string('menu_name' , 8);          //组名称
             $table->string('title' , 32);              //备注，解释
             $table->timestamps();
-
-            // Y:正常，N:禁用 ，D:伪删除
-            $table->enum("status" , ['Y' , 'N' , 'D']);
         });
     }
 }

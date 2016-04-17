@@ -10,6 +10,9 @@ class AdminBehaviorRecord extends Model
 
     protected $table = 'admin_behavior_record';
 
+    protected $fillable = ['behavior' , 'target' , 'client_ip' , 'handle'];
+
+
     public function structure()
     {
         return Schema::create('admin_behavior_record', function ($table) {
