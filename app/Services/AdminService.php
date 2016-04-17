@@ -96,6 +96,10 @@ class AdminService extends ServiceSupport
         }
     }
 
+    /**
+     * 用户快捷登录
+     * @param $adminId
+     */
     public function autoLogin($adminId)
     {
         $admin = $this->admin->find($adminId);
@@ -124,13 +128,26 @@ class AdminService extends ServiceSupport
         ]);
     }
 
+    /**
+     * 判断管理员是否登录
+     * @return bool
+     */
     public static function checkLogin()
     {
+        $admin = Session::get(static::$loginField);
 
+        return !empty($admin);
     }
 
+    /**
+     * 用户密码加密算法
+     * @param $password
+     * @param $random
+     * @return mixed
+     */
     public function encryption($password, $random)
     {
         return md5(md5($password) . $random);
     }
+
 }
