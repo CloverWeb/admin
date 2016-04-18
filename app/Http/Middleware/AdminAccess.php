@@ -15,9 +15,7 @@ class AdminAccess
      */
     public function handle($request, Closure $next)
     {
-
-        var_dump($request->getMethod());
-
+        
         return $next($request);
     }
 }

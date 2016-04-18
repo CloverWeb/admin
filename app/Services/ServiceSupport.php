@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Events\RecordEvent;
 use Illuminate\Support\MessageBag;
 
 abstract class ServiceSupport
@@ -25,13 +26,13 @@ abstract class ServiceSupport
     protected $executeSuffix = 'After';
 
     /**
-     * @var \Illuminate\Contracts\Support\MessageBag $error
+     * @var \Illuminate\Contracts\Support\MessageBag $errors
      */
-    protected $error;
+    protected $errors;
 
     public function __construct()
     {
-        $this->error = app(MessageBag::class);
+        $this->errors = app(MessageBag::class);
     }
 
     public function __get($name)
@@ -83,5 +84,19 @@ abstract class ServiceSupport
         }
 
         throw new \Exception('method not found');
+    }
+
+    protected function behaviorRecord($method, $params = [])
+    {
+        event(new RecordEvent($method, $params));
+    }
+
+    /**
+     * 获取错误 MessageBag
+     * @return \Illuminate\Contracts\Support\MessageBag
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }

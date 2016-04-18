@@ -18,12 +18,14 @@ class AdminGroup extends Model
 
     protected $fillable = ['group_name' , 'title' , 'rules'];
 
+    protected $primaryKey = 'group_id';
+
     public function structure()
     {
         return Schema::create('admin_group', function ($table) {
 
             $table->increments('group_id');
-            $table->string('group_name' , 16);          //组名称
+            $table->string('group_name' , 16)->unique();          //组名称
             $table->string('title' , 32);              //备注，解释
             $table->text('rules');
             $table->timestamps();

@@ -11,9 +11,21 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (\App\Services\AuthService $service) {
+
+$service->createGroup([
+    'group_name'    =>  '超级管理s员',
+    'title' =>  '无所不能等',
+]);
 
     return view('welcome');
 });
 
-Route::match(['GET' , 'POST'] , 'auth/signIn' , 'Auth\AuthController@signIn');
+Route::group(['middleware' => 'admin'] , function() {
+
+    Route::match(['GET' , 'POST'] , 'auth/signIn' , 'Auth\AuthController@signIn');
+});
+
+
+
+//Route::match(['GET' , 'POST'] , 'auth/signIn' , 'Auth\AuthController@signIn');
